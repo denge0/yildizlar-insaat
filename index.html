@@ -7,8 +7,8 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="shortcut icon" href="images/logo.png">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 <header>
   <nav>
     <ul>
-      <li><a href="#index">Ana Sayfa</a></li>
+      <li><a href="#home">Ana Sayfa</a></li>
       <li><a href="#about">Hakkımızda</a></li>
       <li><a href="#gorsel">Görseller</a></li>
       <li><a href="#iletisim">İletişim</a></li>
@@ -33,7 +33,7 @@
 </header>
 
 <!-- HERO -->
-<section class="main-content" id="index">
+<section class="main-content" id="home">
   <div class="baslik">
     <h1>YILDIZLAR</h1>
     <p>“Yaşam Burada Başlıyor”</p>
@@ -47,20 +47,20 @@
     <h1>Hakkımızda</h1>
 
     <p><strong>Yıldızlar İnşaat</strong>, yaşam alanlarını yalnızca inşa etmekle kalmayıp,
-    onlara <strong>değer, güven ve sürdürülebilirlik</strong> kazandırma vizyonuyla
-    faaliyet göstermektedir.</p>
+      onlara <strong>değer, güven ve sürdürülebilirlik</strong> kazandırma vizyonuyla
+      faaliyet göstermektedir.</p>
 
     <p>Her projede; <strong>sağlam yapı, estetik tasarım ve doğru lokasyon</strong>
-    ilkelerini merkeze alıyoruz.</p>
+      ilkelerini merkeze alıyoruz.</p>
 
     <p>Alanında deneyimli kadromuz ve şeffaf çalışma anlayışımızla
-    güvenilir projeler üretmeyi hedefliyoruz.</p>
+      güvenilir projeler üretmeyi hedefliyoruz.</p>
 
     <p class="slogan"><em>Yaşam burada başlıyor.</em></p>
   </div>
 
   <div class="resim-hakkimizda">
-    <img src="images/hakkımızda.jpg" alt="Hakkımızda">
+    <img src="images/hakkimizda.jpg" alt="Hakkımızda">
   </div>
 
   <div class="stats">
@@ -90,19 +90,19 @@
   <div class="gorseller-wrapper">
 
     <article class="gorsel-card">
-      <img src="images/bungalov1.jpg">
+      <img src="images/home.jpg" alt="Dış Görünüş">
       <h3>Dış Görünüş</h3>
       <p>Doğayla uyumlu mimari tasarım.</p>
     </article>
 
     <article class="gorsel-card">
-      <img src="images/bungalovici.jpg">
+      <img src="images/bungalovici.jpg" alt="İç Mekan">
       <h3>İç Mekan</h3>
       <p>Ferah ve konforlu yaşam alanı.</p>
     </article>
 
     <article class="gorsel-card">
-      <img src="images/dinlenmealanı.jpg">
+      <img src="images/dinlenme.jpg" alt="Dinlenme Alanı">
       <h3>Dinlenme Alanı</h3>
       <p>Huzurlu ve sakin ortam.</p>
     </article>
@@ -116,7 +116,7 @@
   <div class="contact-wrapper">
 
     <div class="contact-logo">
-      <img src="images/logo.png">
+      <img src="images/logo.png" alt="Logo">
       <p>Doğayla iç içe huzurlu bir yaşam</p>
     </div>
 
@@ -142,111 +142,65 @@
 
 </section>
 
+<!-- JS -->
 <script>
-/* =========================
-   LOADER
-========================= */
-window.addEventListener("load", () => {
+/* LOADER */
+document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
-  if (loader) {
+
+  setTimeout(() => {
     loader.style.opacity = "0";
+    loader.style.pointerEvents = "none";
+
     setTimeout(() => {
       loader.style.display = "none";
-    }, 600);
-  }
+    }, 500);
+  }, 800);
 });
 
-
-/* =========================
-   SMOOTH SCROLL (MENU)
-========================= */
-document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-  link.addEventListener("click", function (e) {
+/* SMOOTH SCROLL */
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", e => {
     e.preventDefault();
+    const target = document.querySelector(link.getAttribute("href"));
+    const offset = document.querySelector("header").offsetHeight;
 
-    const targetId = this.getAttribute("href");
-    const targetSection = document.querySelector(targetId);
-
-    if (targetSection) {
-      const headerOffset = document.querySelector("header").offsetHeight;
-      const elementPosition = targetSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
+    window.scrollTo({
+      top: target.offsetTop - offset,
+      behavior: "smooth"
+    });
   });
 });
 
-
-/* =========================
-   COUNTER (HAKKIMIZDA)
-========================= */
+/* COUNTER */
 const counters = document.querySelectorAll(".counter");
-let counterStarted = false;
-
-function runCounters() {
-  counters.forEach(counter => {
-    const target = +counter.getAttribute("data-target");
-    let current = 0;
-    const increment = target / 120;
-
-    const updateCounter = () => {
-      current += increment;
-      if (current < target) {
-        counter.innerText = Math.floor(current);
-        requestAnimationFrame(updateCounter);
-      } else {
-        counter.innerText = target;
-      }
-    };
-
-    updateCounter();
-  });
-}
+let started = false;
 
 window.addEventListener("scroll", () => {
-  const aboutSection = document.querySelector(".about");
-  if (!aboutSection) return;
+  const about = document.querySelector(".about");
+  if (!about || started) return;
 
-  const sectionTop = aboutSection.getBoundingClientRect().top;
-  const screenHeight = window.innerHeight;
+  if (about.getBoundingClientRect().top < window.innerHeight - 150) {
+    counters.forEach(counter => {
+      const target = +counter.dataset.target;
+      let current = 0;
+      const inc = target / 120;
 
-  if (sectionTop < screenHeight - 150 && !counterStarted) {
-    runCounters();
-    counterStarted = true;
+      const update = () => {
+        current += inc;
+        if (current < target) {
+          counter.innerText = Math.floor(current);
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      update();
+    });
+    started = true;
   }
-});
-
-
-/* =========================
-   ACTIVE MENU (SCROLL)
-========================= */
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll("nav a");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 120;
-    if (pageYOffset >= sectionTop) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === "#" + current) {
-      link.classList.add("active");
-    }
-  });
 });
 </script>
 
 </body>
 </html>
-
-

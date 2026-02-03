@@ -339,7 +339,7 @@ nav ul li a:hover::after {
 }
 
 .loader-content img {
-  width: 140px;
+  width: 210px;
   animation: pulse 1.8s infinite ease-in-out;
 }
 
@@ -354,3 +354,4 @@ nav ul li a:hover::after {
   50% { opacity: 1; transform: scale(1); }
   100% { opacity: .4; transform: scale(.95); }
 }
+

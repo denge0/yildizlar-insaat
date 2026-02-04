@@ -14,6 +14,10 @@
 </head>
 
 <body>
+<!-- LOADER -->
+  <div class="logo-loader">
+    <img src="images/logo.png" alt="Logo">
+  </div> 
 
 <!-- HEADER -->
 <header>
@@ -40,25 +44,7 @@
   <div class="container">
     <h1>Hakkımızda</h1>
 
-    <p>
-      <strong>Yıldızlar İnşaat</strong>, yaşam alanlarını yalnızca inşa etmekle kalmayıp,
-      onlara <strong>değer, güven ve sürdürülebilirlik</strong> kazandırma vizyonuyla
-      faaliyet göstermektedir.
-    </p>
-
-    <p>
-      Modern mimariyi fonksiyonel yaşam alanlarıyla buluşturarak,
-      bugünün ihtiyaçlarına ve yarının beklentilerine cevap veren projeler üretiyoruz.
-    </p>
-
-    <p>
-      Bizim için her proje yalnızca bir yapı değil,
-      içinde hayatların şekillendiği kalıcı bir değerdir.
-    </p>
-
-    <p class="slogan">
-      <em>Yaşam burada başlıyor.</em>
-    </p>
+    <p> <strong>Yıldızlar İnşaat</strong>, yaşam alanlarını yalnızca inşa etmekle kalmayıp, onlara <strong>değer, güven ve sürdürülebilirlik</strong> kazandırma vizyonuyla faaliyet göstermektedir. Kurulduğumuz günden bu yana, kaliteyi temel alan anlayışımız ve müşteri odaklı yaklaşımımızla emlak ve inşaat sektöründe kalıcı projelere imza atıyoruz. </p> <p> Her projede; <strong>sağlam yapı, estetik tasarım ve doğru lokasyon</strong> ilkelerini merkeze alıyor, modern mimariyi fonksiyonel yaşam alanlarıyla buluşturuyoruz. Konut projelerinden ticari yapılara kadar uzanan geniş portföyümüzle, hem bugünün ihtiyaçlarına hem de yarının beklentilerine cevap veren çözümler sunuyoruz. </p> <p> Alanında deneyimli kadromuz, şeffaf çalışma prensibimiz ve güçlü teknik altyapımız sayesinde; yatırımcılarımıza güvenilir, kullanıcılarımıza ise huzurlu yaşam alanları sunmayı hedefliyoruz. Bizim için her proje, sadece bir yapı değil; içinde hayatların şekillendiği uzun vadeli bir değerdir. </p> <p> <strong>Yıldızlar İnşaat</strong> olarak, bulunduğumuz her bölgede kalıcı izler bırakmayı, kalite standartlarını sürekli yükseltmeyi ve müşterilerimizin hayallerini gerçeğe dönüştürmeyi sürdürüyoruz. </p> <p class="slogan"> <em>Yaşam burada başlıyor.</em> </p>
   </div>
 
   <div class="resim-hakkımızda">
@@ -142,9 +128,12 @@
     <!-- SAĞ -->
     <div class="contact-map">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1271.7429520294334!2d30.249428865366166!3d40.70190992554778"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
+
+  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1271.7429520294334!2d30.249428865366166!3d40.70190992554778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1str!2str!4v1770061564452"
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
       </iframe>
     </div>
 
@@ -155,13 +144,20 @@
   </div>
 </section>
 
-<!-- COUNTER SCRIPT -->
 <script>
+/* LOADER KAPATMA */
+window.addEventListener("load", () => {
+  const loader = document.querySelector(".logo-loader");
+  if (loader) loader.style.display = "none";
+});
+
+/* COUNTER */
 const counters = document.querySelectorAll('.counter');
 let started = false;
 
 const startCounters = () => {
   if (started) return;
+
   counters.forEach(counter => {
     const target = +counter.dataset.target;
     let current = 0;
@@ -176,21 +172,27 @@ const startCounters = () => {
         counter.innerText = target.toLocaleString('tr-TR');
       }
     };
+
     update();
   });
+
   started = true;
 };
 
 window.addEventListener('scroll', () => {
   const stats = document.querySelector('.stats');
+  if (!stats) return;
+
   if (stats.getBoundingClientRect().top < window.innerHeight - 100) {
     startCounters();
   }
 });
 </script>
 
+
 </body>
 </html>
+
 
 
 
